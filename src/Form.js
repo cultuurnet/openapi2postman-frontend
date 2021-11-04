@@ -1,4 +1,4 @@
-import convert  from 'openapi2postman'
+import convert  from '@publiqbe/openapi2postman'
 import React, { useState } from 'react'
 
 const Form = () => {
