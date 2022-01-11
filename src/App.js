@@ -1,6 +1,7 @@
 import "./index.css";
 import { Form } from "./Form";
 import styled  from "styled-components"
+import { Logos } from "./components/Logos";
 
 export default function App() {
 
@@ -14,7 +15,7 @@ export default function App() {
 
   return (
     <Container className="App">
-      <h1>openapi 2 postman</h1>
+      <Logos />
       <Form />
     </Container>
   );
