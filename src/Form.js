@@ -46,6 +46,7 @@ const Form = () => {
         break;
       case 'other':
         scheme = formData.otherUrl;
+        break;
       default:
         scheme = UDB_ENTRY_SCHEME_URL;
     }
