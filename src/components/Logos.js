@@ -10,8 +10,16 @@ const Logos = (props) => {
   `;
   return (
     <Container>
-      <img src="/publiq-logo.png" alt="publiq logo" width="150" />
-      <img src="/postman-logo.png" alt="postman logo" width="120" />
+      <img
+        src="https://cultuurnet.github.io/openapi2postman-frontend/publiq-logo.png"
+        alt="publiq logo"
+        width="150"
+      />
+      <img
+        src="https://cultuurnet.github.io/openapi2postman-frontend/postman-logo.png"
+        alt="postman logo"
+        width="120"
+      />
     </Container>
   );
 };
