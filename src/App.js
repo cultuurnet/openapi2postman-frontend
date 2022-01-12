@@ -2,6 +2,7 @@ import "./index.css";
 import { Form } from "./Form";
 import styled  from "styled-components"
 import { Logos } from "./components/Logos";
+import { Intro } from "./components/Intro";
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <Container className="App">
       <Logos />
+      <Intro />
       <Form />
     </Container>
   );

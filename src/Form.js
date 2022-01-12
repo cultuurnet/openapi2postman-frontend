@@ -50,6 +50,7 @@ const Form = () => {
       clientSecret: formData.clientSecret
     }
     try {
+      setLoading(true)
       const postmanCollectionJson = await convert(scheme, environment, baseUrl, auth)
       const a = document.createElement("a");
       const file = new Blob([JSON.stringify(postmanCollectionJson)], { type: "text/plain" });
@@ -60,6 +61,7 @@ const Form = () => {
       console.log(err)
       setHasError(true)
     }
+    setLoading(false)
   };
 
 
@@ -88,7 +90,7 @@ const Form = () => {
       </div>
       }
 
-      <button onClick={handleSubmit}>Download</button>
+      <button onClick={handleSubmit} class="button-primary" disabled={loading}>Download</button>
     </>
   );
 };

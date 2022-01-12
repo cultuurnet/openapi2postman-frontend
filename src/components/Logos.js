@@ -6,7 +6,7 @@ const Logos = (props) => {
   align-items: center;
   justify-content: space-between;
   width: 300px;
-  margin: 5rem 0;
+  margin: 5rem 0 2.5rem 0;
   `
  return (
   <Container>
