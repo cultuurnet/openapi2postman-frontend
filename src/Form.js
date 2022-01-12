@@ -1,5 +1,6 @@
 import convert  from '@publiqbe/openapi2postman'
 import React, { useState } from 'react'
+import styled  from "styled-components"
 import { Alert } from './components/Alert';
 import { Spinner } from './components/Spinner';
 
@@ -65,6 +66,12 @@ const Form = () => {
     setLoading(false)
   };
 
+  const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  `;
+
 
   return (
     <>
@@ -72,7 +79,7 @@ const Form = () => {
         hasError && <Alert text={errorText} />
       }
       {
-        loading ? <Spinner /> : <div>
+        loading ? <Spinner /> : <FormWrapper>
         <div>
           <input type="text" placeholder="client id" value={formData.clientId} onChange={(e) => setFormData({...formData, clientId: e.target.value})} />
         </div>
@@ -93,7 +100,7 @@ const Form = () => {
         </div>
         }
         <button onClick={handleSubmit} class="button-primary">Download</button>
-        </div>
+        </FormWrapper>
       }
 
     </>
