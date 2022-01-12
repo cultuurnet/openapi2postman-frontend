@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/openapi2postman-frontend/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/openapi2postman-frontend/static/js/main.7e866942.chunk.js",
+    "main.js.map": "/openapi2postman-frontend/static/js/main.7e866942.chunk.js.map",
+    "runtime-main.js": "/openapi2postman-frontend/static/js/runtime-main.ec98d269.js",
+    "runtime-main.js.map": "/openapi2postman-frontend/static/js/runtime-main.ec98d269.js.map",
+    "static/js/2.6f4e756a.chunk.js": "/openapi2postman-frontend/static/js/2.6f4e756a.chunk.js",
+    "static/js/2.6f4e756a.chunk.js.map": "/openapi2postman-frontend/static/js/2.6f4e756a.chunk.js.map",
+    "index.html": "/openapi2postman-frontend/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/openapi2postman-frontend/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.6f4e756a.chunk.js.LICENSE.txt": "/openapi2postman-frontend/static/js/2.6f4e756a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ec98d269.js",
+    "static/js/2.6f4e756a.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.7e866942.chunk.js"
+  ]
+}
