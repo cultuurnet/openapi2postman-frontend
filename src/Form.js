@@ -1,6 +1,7 @@
 import convert  from '@publiqbe/openapi2postman'
 import React, { useState } from 'react'
 import { Alert } from './components/Alert';
+import { Spinner } from './components/Spinner';
 
 const Form = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -70,27 +71,31 @@ const Form = () => {
       {
         hasError && <Alert text={errorText} />
       }
-      <div>
-        <input type="text" placeholder="client id" value={formData.clientId} onChange={(e) => setFormData({...formData, clientId: e.target.value})} />
-      </div>
-      <div>
-        <input type="password" placeholder="client secret" value={formData.clientSecret} onChange={(e) => setFormData({...formData, clientSecret: e.target.value})}/>
-      </div>
-      <div>
-        <label for="apiType">API</label>
-        <select value={formData.apiType} onChange={(e) => setFormData({...formData, apiType: e.target.value})} id="apiType">
-          <option value="udb-entry">UiTdatabank Entry API</option>
-          <option value="uitpas-api">UiTPAS API</option>
-          <option value="other">Other...</option>
-        </select>
-      </div>
-      { formData.apiType === 'other' &&
-      <div>
-        <input type="text" placeholder="url" value={formData.otherUrl} onChange={(e) => setFormData({...formData, otherUrl: e.target.value})} />
-      </div>
+      {
+        loading ? <Spinner /> : <div>
+        <div>
+          <input type="text" placeholder="client id" value={formData.clientId} onChange={(e) => setFormData({...formData, clientId: e.target.value})} />
+        </div>
+        <div>
+          <input type="password" placeholder="client secret" value={formData.clientSecret} onChange={(e) => setFormData({...formData, clientSecret: e.target.value})}/>
+        </div>
+        <div>
+          <label for="apiType">API</label>
+          <select value={formData.apiType} onChange={(e) => setFormData({...formData, apiType: e.target.value})} id="apiType">
+            <option value="udb-entry">UiTdatabank Entry API</option>
+            <option value="uitpas-api">UiTPAS API</option>
+            <option value="other">Other...</option>
+          </select>
+        </div>
+        { formData.apiType === 'other' &&
+        <div>
+          <input type="text" placeholder="url" value={formData.otherUrl} onChange={(e) => setFormData({...formData, otherUrl: e.target.value})} />
+        </div>
+        }
+        <button onClick={handleSubmit} class="button-primary">Download</button>
+        </div>
       }
 
-      <button onClick={handleSubmit} class="button-primary" disabled={loading}>Download</button>
     </>
   );
 };
