@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        uses: actions/checkout@v2.5.1
 
       - name: Install and Build 🔧
         run: |
