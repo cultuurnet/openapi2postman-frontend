@@ -3,18 +3,45 @@ import React, { useState } from 'react'
 import { Alert } from './components/Alert';
 
 const Form = () => {
+  const queryParams = new URLSearchParams(window.location.search);
+
   const [formData, setFormData] = useState({
     clientId: "",
     clientSecret: "",
     environment: "",
+    apiType: queryParams.get('api') ?? 'udb-entry',
+    otherUrl: "",
   })
 
   const [loading, setLoading] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const [errorText, setErrorText] = useState('Something went wrong, please try again later')
+
+  const PUBLIQ_STOPLIGHT_SCHEME = 'https://stoplight.io/api/v1/projects/publiq/'
+  const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`
+  const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/UiTPAS.v2.json?deref=optimizedBundle`
 
   const handleSubmit = async () => {
-    console.log("handleSubmit");
-    const schema = 'https://stoplight.io/api/v1/projects/publiq/uitdatabank/nodes/reference/entry.json?deref=optimizedBundle'
+
+    if (formData.apiType === 'other' && !formData.otherUrl.startsWith(PUBLIQ_STOPLIGHT_SCHEME)) {
+      setHasError(true)
+      setErrorText(`API URL should start with ${PUBLIQ_STOPLIGHT_SCHEME}`)
+      return
+    }
+
+    let scheme;
+    switch (formData.apiType) {
+      case 'udb-entry':
+        scheme = UDB_ENTRY_SCHEME_URL
+        break
+      case 'uitpas-api':
+        scheme =  UITPAS_API_SCHEME_URL
+        break
+      case 'other':
+        scheme = formData.otherUrl
+      default:
+        scheme = UDB_ENTRY_SCHEME_URL
+    }
     const environment = 'test'
     const baseUrl = ''
     const auth = {
@@ -23,7 +50,7 @@ const Form = () => {
       clientSecret: formData.clientSecret
     }
     try {
-      const postmanCollectionJson = await convert(schema, environment, baseUrl, auth)
+      const postmanCollectionJson = await convert(scheme, environment, baseUrl, auth)
       const a = document.createElement("a");
       const file = new Blob([JSON.stringify(postmanCollectionJson)], { type: "text/plain" });
       a.href = URL.createObjectURL(file);
@@ -38,13 +65,29 @@ const Form = () => {
 
   return (
     <>
-      <Alert text="Er liep iets fout" />
+      {
+        hasError && <Alert text={errorText} />
+      }
       <div>
         <input type="text" placeholder="client id" value={formData.clientId} onChange={(e) => setFormData({...formData, clientId: e.target.value})} />
       </div>
       <div>
         <input type="password" placeholder="client secret" value={formData.clientSecret} onChange={(e) => setFormData({...formData, clientSecret: e.target.value})}/>
       </div>
+      <div>
+        <label for="apiType">API</label>
+        <select value={formData.apiType} onChange={(e) => setFormData({...formData, apiType: e.target.value})} id="apiType">
+          <option value="udb-entry">UiTdatabank Entry API</option>
+          <option value="uitpas-api">UiTPAS API</option>
+          <option value="other">Other...</option>
+        </select>
+      </div>
+      { formData.apiType === 'other' &&
+      <div>
+        <input type="text" placeholder="url" value={formData.otherUrl} onChange={(e) => setFormData({...formData, otherUrl: e.target.value})} />
+      </div>
+      }
+
       <button onClick={handleSubmit}>Download</button>
     </>
   );
