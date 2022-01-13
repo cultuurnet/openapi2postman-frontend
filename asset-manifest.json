@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/openapi2postman-frontend/static/css/main.2dcfb9ad.chunk.css",
-    "main.js": "/openapi2postman-frontend/static/js/main.3055e941.chunk.js",
-    "main.js.map": "/openapi2postman-frontend/static/js/main.3055e941.chunk.js.map",
-    "runtime-main.js": "/openapi2postman-frontend/static/js/runtime-main.ec98d269.js",
-    "runtime-main.js.map": "/openapi2postman-frontend/static/js/runtime-main.ec98d269.js.map",
-    "static/js/2.13030255.chunk.js": "/openapi2postman-frontend/static/js/2.13030255.chunk.js",
-    "static/js/2.13030255.chunk.js.map": "/openapi2postman-frontend/static/js/2.13030255.chunk.js.map",
-    "index.html": "/openapi2postman-frontend/index.html",
-    "static/css/main.2dcfb9ad.chunk.css.map": "/openapi2postman-frontend/static/css/main.2dcfb9ad.chunk.css.map",
-    "static/js/2.13030255.chunk.js.LICENSE.txt": "/openapi2postman-frontend/static/js/2.13030255.chunk.js.LICENSE.txt"
+    "main.css": "/static/css/main.2dcfb9ad.chunk.css",
+    "main.js": "/static/js/main.c89f1e91.chunk.js",
+    "main.js.map": "/static/js/main.c89f1e91.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e3eff639.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e3eff639.js.map",
+    "static/js/2.26fca4e0.chunk.js": "/static/js/2.26fca4e0.chunk.js",
+    "static/js/2.26fca4e0.chunk.js.map": "/static/js/2.26fca4e0.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.2dcfb9ad.chunk.css.map": "/static/css/main.2dcfb9ad.chunk.css.map",
+    "static/js/2.26fca4e0.chunk.js.LICENSE.txt": "/static/js/2.26fca4e0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ec98d269.js",
-    "static/js/2.13030255.chunk.js",
+    "static/js/runtime-main.e3eff639.js",
+    "static/js/2.26fca4e0.chunk.js",
     "static/css/main.2dcfb9ad.chunk.css",
-    "static/js/main.3055e941.chunk.js"
+    "static/js/main.c89f1e91.chunk.js"
   ]
 }
