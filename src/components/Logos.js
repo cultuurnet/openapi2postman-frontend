@@ -5,7 +5,7 @@ const Logos = (props) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 300px;
+    width: 250px;
     margin: 5rem 0 2.5rem 0;
   `;
   return (
@@ -13,12 +13,12 @@ const Logos = (props) => {
       <img
         src="https://cultuurnet.github.io/openapi2postman-frontend/publiq-logo.png"
         alt="publiq logo"
-        width="150"
+        width="130"
       />
       <img
         src="https://cultuurnet.github.io/openapi2postman-frontend/postman-logo.png"
         alt="postman logo"
-        width="120"
+        width="100"
       />
     </Container>
   );
