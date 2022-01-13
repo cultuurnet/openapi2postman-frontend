@@ -4,6 +4,17 @@ import styled from 'styled-components';
 import { Alert } from './components/Alert';
 import { Spinner } from './components/Spinner';
 
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+`;
+
+const DownloadButton = styled.button`
+  height: 50px;
+`;
+
 const Form = () => {
   const queryParams = new URLSearchParams(window.location.search);
 
@@ -11,15 +22,15 @@ const Form = () => {
     clientId: '',
     clientSecret: '',
     environment: '',
-    apiType: queryParams.get('api') ?? 'udb-entry',
+    apiType: queryParams.get('api') ?? '',
     otherUrl: '',
   });
 
+  const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
+
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [errorText, setErrorText] = useState(
-    'Something went wrong, please try again later',
-  );
+  const [errorText, setErrorText] = useState(DEFAULT_ERROR_TEXT);
 
   const PUBLIQ_STOPLIGHT_SCHEME =
     'https://stoplight.io/api/v1/projects/publiq/';
@@ -33,6 +44,12 @@ const Form = () => {
     ) {
       setHasError(true);
       setErrorText(`API URL should start with ${PUBLIQ_STOPLIGHT_SCHEME}`);
+      return;
+    }
+
+    if (formData.apiType === '') {
+      setHasError(true);
+      setErrorText(`Please select an API from the list`);
       return;
     }
 
@@ -70,20 +87,23 @@ const Form = () => {
         type: 'text/plain',
       });
       a.href = URL.createObjectURL(file);
-      a.download = 'postman-collection.json';
+      a.download =
+        formData.apiType !== 'other'
+          ? `${formData.apiType}.json`
+          : 'postman-collection.json';
       a.click();
     } catch (err) {
       console.log(err);
       setHasError(true);
+      setErrorText(DEFAULT_ERROR_TEXT);
     }
     setLoading(false);
   };
 
-  const FormWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  `;
+  const resetError = () => {
+    setHasError(false);
+    setErrorText('');
+  };
 
   return (
     <>
@@ -91,36 +111,45 @@ const Form = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <FormWrapper>
+        <FormWrapper key="form-wrapper">
           <div>
             <input
+              class="u-full-width"
               type="text"
               placeholder="client id"
               value={formData.clientId}
-              onChange={(e) =>
-                setFormData({ ...formData, clientId: e.target.value })
-              }
+              onChange={(e) => {
+                setFormData({ ...formData, clientId: e.target.value });
+                resetError();
+              }}
             />
           </div>
           <div>
             <input
               type="password"
+              class="u-full-width"
               placeholder="client secret"
               value={formData.clientSecret}
-              onChange={(e) =>
-                setFormData({ ...formData, clientSecret: e.target.value })
-              }
+              onChange={(e) => {
+                setFormData({ ...formData, clientSecret: e.target.value });
+                resetError();
+              }}
             />
           </div>
           <div>
             <label for="apiType">API</label>
             <select
+              class="u-full-width"
               value={formData.apiType}
-              onChange={(e) =>
-                setFormData({ ...formData, apiType: e.target.value })
-              }
+              onChange={(e) => {
+                setFormData({ ...formData, apiType: e.target.value });
+                resetError();
+              }}
               id="apiType"
             >
+              <option value="" selected disabled>
+                Select API
+              </option>
               <option value="udb-entry">UiTdatabank Entry API</option>
               <option value="uitpas-api">UiTPAS API</option>
               <option value="other">Other...</option>
@@ -129,18 +158,20 @@ const Form = () => {
           {formData.apiType === 'other' && (
             <div>
               <input
+                class="u-full-width"
                 type="text"
                 placeholder="url"
                 value={formData.otherUrl}
-                onChange={(e) =>
-                  setFormData({ ...formData, otherUrl: e.target.value })
-                }
+                onChange={(e) => {
+                  setFormData({ ...formData, otherUrl: e.target.value });
+                  resetError();
+                }}
               />
             </div>
           )}
-          <button onClick={handleSubmit} class="button-primary">
+          <DownloadButton onClick={handleSubmit} className="button-primary">
             Download
-          </button>
+          </DownloadButton>
         </FormWrapper>
       )}
     </>

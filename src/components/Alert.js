@@ -7,6 +7,7 @@ const Alert = (props) => {
     border: 1px solid #ebccd1;
     color: #a94442;
     margin-bottom: 2rem;
+    width: 500px;
   `;
   return <Container>{props.text}</Container>;
 };

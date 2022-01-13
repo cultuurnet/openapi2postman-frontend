@@ -24,7 +24,11 @@
     "deploy": "main -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --fix --ignore-path .gitignore",
+    "lint:check": "eslint . --ignore-path .gitignore",
+    "format": "prettier . --write --ignore-path ./.gitignore",
+    "format:check": "prettier . --check --ignore-path ./.gitignore"
   },
   "eslintConfig": {
     "extends": [
