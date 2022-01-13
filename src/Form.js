@@ -113,6 +113,7 @@ const Form = () => {
       ) : (
         <FormWrapper key="form-wrapper">
           <div>
+            <label>API client credentials (test environment)</label>
             <input
               class="u-full-width"
               type="text"
