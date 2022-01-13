@@ -1,6 +1,6 @@
 {
   "name": "openapi2postmanv2-frontend",
-  "homepage": "https://cultuurnet.github.io/openapi2postman-frontend/",
+  "homepage": "https://postman.publiq.be/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
