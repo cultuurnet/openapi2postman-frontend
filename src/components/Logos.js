@@ -11,12 +11,12 @@ const Logos = (props) => {
   return (
     <Container>
       <img
-        src="https://cultuurnet.github.io/openapi2postman-frontend/publiq-logo.png"
+        src="https://postman.publiq.be/publiq-logo.png"
         alt="publiq logo"
         width="130"
       />
       <img
-        src="https://cultuurnet.github.io/openapi2postman-frontend/postman-logo.png"
+        src="https://postman.publiq.be/postman-logo.png"
         alt="postman logo"
         width="100"
       />
