@@ -15,7 +15,7 @@ const Intro = (props) => {
   return (
     <Container>
       <Paragraph>
-        Ready to start playing around with our APIs? Use the form below to download a personalized collection to import into Postman and start making API requests in a matter of seconds!
+        Ready to start playing around with our APIs? Use the form below to download a personalized collection to import into Postman and start making API requests to our test environment in a matter of seconds!
       </Paragraph>
       <Paragraph>
         We also provide extensive <a href={'https://docs.publiq.be'}>API documentation</a> with how-to guides, a technical reference for each API endpoint, and info about authentication and error handling.

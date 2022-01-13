@@ -116,7 +116,7 @@ const Form = () => {
             <input
               class="u-full-width"
               type="text"
-              placeholder="client id"
+              placeholder="client id (test environment)"
               value={formData.clientId}
               onChange={(e) => {
                 setFormData({ ...formData, clientId: e.target.value });
