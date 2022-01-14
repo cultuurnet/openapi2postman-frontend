@@ -1,4 +1,5 @@
 import { Form } from './Form';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Logos } from './components/Logos';
@@ -45,13 +46,15 @@ const Container = styled.div`
 `;
 
 export default function App() {
+  const [hideIntro, setHideIntro] = useState(false);
+
   return (
     <>
       <GlobalStyle />
       <Container className="App">
         <Logos />
-        <Intro />
-        <Form />
+        {!hideIntro && <Intro />}
+        <Form onDownloadCompleted={setHideIntro} />
       </Container>
     </>
   );
