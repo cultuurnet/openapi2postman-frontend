@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 
-const Intro = (props) => {
-  const Container = styled.div`
-    max-width: 500px;
-    background-color: #efefef;
-    padding: 15px 15px 0 15px;
-    border-radius: 5px;
-    margin-bottom: 2.5rem;
-  `;
+const Container = styled.div`
+  max-width: 500px;
+  background-color: #efefef;
+  padding: 15px 15px 0 15px;
+  border-radius: 5px;
+  margin-bottom: 2.5rem;
+`;
 
-  const Paragraph = styled.p`
-    margin-bottom: 15px;
-  `;
+const Paragraph = styled.p`
+  margin-bottom: 15px;
+`;
+
+const Intro = (props) => {
   return (
     <Container>
       <Paragraph>
