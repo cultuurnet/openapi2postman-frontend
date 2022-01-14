@@ -82,15 +82,13 @@ const Form = () => {
         baseUrl,
         auth,
       );
+      const apiName = postmanCollectionJson.info.name || 'postman-collection';
       const a = document.createElement('a');
       const file = new Blob([JSON.stringify(postmanCollectionJson)], {
         type: 'text/plain',
       });
       a.href = URL.createObjectURL(file);
-      a.download =
-        formData.apiType !== 'other'
-          ? `${formData.apiType}.json`
-          : 'postman-collection.json';
+      a.download = apiName + '.json';
       a.click();
     } catch (err) {
       console.log(err);
