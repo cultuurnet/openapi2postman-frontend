@@ -16,18 +16,18 @@ const Intro = (props) => {
     <Container>
       <Paragraph>
         Ready to start playing around with our APIs? Use the form below to
-        download a personalized
+        download a personalized{' '}
         <a href="https://www.postman.com/" target="_blank" rel="noreferrer">
           Postman
-        </a>
+        </a>{' '}
         collection and start making API requests to our test environment in a
         matter of seconds!
       </Paragraph>
       <Paragraph>
-        We also provide extensive
+        We also provide extensive{' '}
         <a href="https://docs.publiq.be" target="_blank" rel="noreferrer">
           API documentation
-        </a>
+        </a>{' '}
         with how-to guides, a technical reference for each API endpoint, and
         info about authentication and error handling.
       </Paragraph>
