@@ -1,8 +1,18 @@
 import './index.css';
 import { Form } from './Form';
 import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import { Logos } from './components/Logos';
 import { Intro } from './components/Intro';
+
+const GlobalStyle = createGlobalStyle`
+    p,
+    input,
+    select,
+    button {
+      font-size: 1.5rem;
+    }
+`;
 
 export default function App() {
   const Container = styled.div`
@@ -14,10 +24,13 @@ export default function App() {
   `;
 
   return (
-    <Container className="App">
-      <Logos />
-      <Intro />
-      <Form />
-    </Container>
+    <>
+      <GlobalStyle />
+      <Container className="App">
+        <Logos />
+        <Intro />
+        <Form />
+      </Container>
+    </>
   );
 }

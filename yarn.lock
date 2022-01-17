@@ -1596,10 +1596,10 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@publiqbe/openapi2postman@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@publiqbe/openapi2postman/-/openapi2postman-0.1.0.tgz#4a0d1dc15f26b774a2a2e6542dc9ea2d5b65cd9c"
-  integrity sha512-9mmoiRuaaQH7jY6lJAnWWgyE3CT0fobi7GeKyF0B77CfvQbVhVxnqGrO58CZK0Jhsgwqcjf9u5pMWjjaq8j5zg==
+"@publiqbe/openapi2postman@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@publiqbe/openapi2postman/-/openapi2postman-0.2.0.tgz#7b68575219931c30f9d9c86526fbd4a982bc5d27"
+  integrity sha512-s8oskIQy4GN13oUnsgo9j9ovTSvnWovEFEL+i53AsNqC74SB1XKO32Exx1EV/07aSElZ5PCehkNKJf1imOqdvA==
   dependencies:
     "@apidevtools/json-schema-ref-parser" "^9.0.9"
     openapi-to-postmanv2 "^2.12.0"
