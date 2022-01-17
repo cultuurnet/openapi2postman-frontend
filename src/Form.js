@@ -44,6 +44,17 @@ const DownloadButton = styled.button`
 
 const AdvancedOptions = styled.div``;
 
+const InfoBox = styled.div`
+  background-color: #efefef;
+  padding: 15px;
+  border-radius: 5px;
+`;
+
+const Text = styled.p`
+  font-size: ${(props) => (props.size === 'small' ? '1.20rem' : '1.5rem')};
+  margin-bottom: 0;
+`;
+
 const Form = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
 
@@ -53,6 +64,8 @@ const Form = (props) => {
     environment: '',
     apiType: queryParams.get('api') ?? '',
     otherUrl: '',
+    tokenGrantType: '',
+    callbackUrl: '',
   });
 
   const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
@@ -101,10 +114,12 @@ const Form = (props) => {
     const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
-      tokenGrantType: 'client_credentials',
+      tokenGrantType: formData.tokenGrantType || 'client_credentials',
       clientId: formData.clientId,
       clientSecret: formData.clientSecret,
+      ...(formData.callbackUrl !== '' && { callbackUrl: formData.callbackUrl }),
     };
+    console.log({ auth });
     try {
       setLoading(true);
       const postmanCollectionJson = await convert(
@@ -186,7 +201,6 @@ const Form = (props) => {
                 />
               </div>
               <div>
-                <label htmlFor="apiType">API</label>
                 <select
                   className="u-full-width"
                   value={formData.apiType}
@@ -238,6 +252,61 @@ const Form = (props) => {
                       </option>
                     ))}
                   </select>
+                  <select
+                    className="u-full-width"
+                    value={formData.tokenGrantType}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        tokenGrantType: e.target.value,
+                      });
+                      resetError();
+                    }}
+                    id="tokenGrantType"
+                  >
+                    <option value="" disabled>
+                      Select Token type
+                    </option>
+                    <option value="client_credentials">
+                      Client access token
+                    </option>
+                    <option value="authorization_code">
+                      User access token
+                    </option>
+                  </select>
+                  {formData.tokenGrantType === 'authorization_code' && (
+                    <div>
+                      <input
+                        className="u-full-width"
+                        type="text"
+                        placeholder="callback url*"
+                        value={formData.callbackUrl}
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            callbackUrl: e.target.value,
+                          });
+                          resetError();
+                        }}
+                      />
+                      <InfoBox>
+                        <Text size="small">
+                          *URL to redirect back to after logging in. Postman
+                          will not show the actual page, but it is still
+                          required for a successful login flow. Has to be a URL
+                          that is configured to be allowed for the given client
+                          id. See the{' '}
+                          <a
+                            href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
+                            target="_blank"
+                          >
+                            user access token documentation
+                          </a>{' '}
+                          for more information.
+                        </Text>
+                      </InfoBox>
+                    </div>
+                  )}
                 </AdvancedOptions>
               )}
               <LinkButton onClick={toggleAdvancedOptions}>
