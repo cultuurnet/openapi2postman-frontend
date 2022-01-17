@@ -61,10 +61,10 @@ const Form = (props) => {
   const [formData, setFormData] = useState({
     clientId: '',
     clientSecret: '',
-    environment: '',
+    environment: 'test',
     apiType: queryParams.get('api') ?? '',
     otherUrl: '',
-    tokenGrantType: '',
+    tokenGrantType: 'client_credentials',
     callbackUrl: '',
   });
 
@@ -179,7 +179,7 @@ const Form = (props) => {
                 <input
                   className="u-full-width"
                   type="text"
-                  placeholder="client id (test environment)"
+                  placeholder={`client id (${formData.environment} environment)`}
                   value={formData.clientId}
                   onChange={(e) => {
                     setFormData({ ...formData, clientId: e.target.value });
@@ -233,6 +233,7 @@ const Form = (props) => {
               )}
               {hasAdvancedSettings && (
                 <AdvancedOptions>
+                  <label htmlFor="enironment">Environment</label>
                   <select
                     className="u-full-width"
                     value={formData.environment}
@@ -242,15 +243,13 @@ const Form = (props) => {
                     }}
                     id="environment"
                   >
-                    <option value="" disabled>
-                      Select Environment
-                    </option>
                     {ENVIRONMENTS.map((environment) => (
                       <option value={environment.value}>
                         {environment.label}
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="tokenGrantType">Token type </label>
                   <select
                     className="u-full-width"
                     value={formData.tokenGrantType}
@@ -263,9 +262,6 @@ const Form = (props) => {
                     }}
                     id="tokenGrantType"
                   >
-                    <option value="" disabled>
-                      Select Token type
-                    </option>
                     <option value="client_credentials">
                       Client access token
                     </option>
@@ -298,6 +294,7 @@ const Form = (props) => {
                           <a
                             href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
                             target="_blank"
+                            rel="noreferrer"
                           >
                             user access token documentation
                           </a>{' '}
