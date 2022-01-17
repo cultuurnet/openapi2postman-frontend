@@ -119,7 +119,6 @@ const Form = (props) => {
       clientSecret: formData.clientSecret,
       ...(formData.callbackUrl !== '' && { callbackUrl: formData.callbackUrl }),
     };
-    console.log({ auth });
     try {
       setLoading(true);
       const postmanCollectionJson = await convert(
