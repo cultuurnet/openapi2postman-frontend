@@ -5,6 +5,21 @@ import { Alert } from './components/Alert';
 import { HowTo } from './components/HowTo';
 import { Spinner } from './components/Spinner';
 
+const ENVIRONMENTS = [
+  {
+    label: 'Acceptance',
+    value: 'acc',
+  },
+  {
+    label: 'Testing',
+    value: 'test',
+  },
+  {
+    label: 'Production',
+    value: 'prod',
+  },
+];
+
 const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -14,18 +29,20 @@ const FormWrapper = styled.div`
 
 const LinkButton = styled.button`
   border: 0;
+  height: auto;
   text-decoration: underline;
   text-transform: none;
   font-size: 1.5rem;
   padding: 0;
-  height: 0;
   letter-spacing: 0;
-  color: #00aae5;
+  color: ${(props) => props.color || 'darkgrey'};
 `;
 
 const DownloadButton = styled.button`
   height: 50px;
 `;
+
+const AdvancedOptions = styled.div``;
 
 const Form = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -41,6 +58,7 @@ const Form = (props) => {
   const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
 
   const [loading, setLoading] = useState(false);
+  const [hasAdvancedSettings, setHasAdvancedSettings] = useState(false);
   const [hasDownloadStarted, setHasDownloadStarted] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorText, setErrorText] = useState(DEFAULT_ERROR_TEXT);
@@ -80,7 +98,7 @@ const Form = (props) => {
       default:
         scheme = UDB_ENTRY_SCHEME_URL;
     }
-    const environment = 'test';
+    const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
       tokenGrantType: 'client_credentials',
@@ -123,6 +141,10 @@ const Form = (props) => {
     props.onDownloadCompleted(false);
   };
 
+  const toggleAdvancedOptions = () => {
+    setHasAdvancedSettings(!hasAdvancedSettings);
+  };
+
   return (
     <>
       {hasError && <Alert text={errorText} />}
@@ -133,7 +155,7 @@ const Form = (props) => {
           {hasDownloadStarted ? (
             <>
               <HowTo />
-              <LinkButton onClick={restartFlow}>
+              <LinkButton onClick={restartFlow} color="#00aae5">
                 Download another collection
               </LinkButton>
             </>
@@ -196,6 +218,31 @@ const Form = (props) => {
                   />
                 </div>
               )}
+              {hasAdvancedSettings && (
+                <AdvancedOptions>
+                  <select
+                    className="u-full-width"
+                    value={formData.environment}
+                    onChange={(e) => {
+                      setFormData({ ...formData, environment: e.target.value });
+                      resetError();
+                    }}
+                    id="environment"
+                  >
+                    <option value="" disabled>
+                      Select Environment
+                    </option>
+                    {ENVIRONMENTS.map((environment) => (
+                      <option value={environment.value}>
+                        {environment.label}
+                      </option>
+                    ))}
+                  </select>
+                </AdvancedOptions>
+              )}
+              <LinkButton onClick={toggleAdvancedOptions}>
+                {hasAdvancedSettings ? 'Hide' : 'Show'} advanced options
+              </LinkButton>
               <DownloadButton onClick={handleSubmit} className="button-primary">
                 Download
               </DownloadButton>
