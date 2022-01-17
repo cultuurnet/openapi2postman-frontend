@@ -38,6 +38,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 1.5rem;
 `;
 
 const Title = styled.h1`
@@ -55,7 +56,6 @@ const HowTo = (props) => {
         setWrapperSize={800}
         navigation
         pagination={{ clickable: true }}
-        style={{ width: '800px', height: '450px' }}
       >
         {STEPS.map((step, index) => (
           <SwiperSlide key={`step_${index}`}>
@@ -63,6 +63,7 @@ const HowTo = (props) => {
               src={`/postman-step-${step.id}.png`}
               alt={`postman download step ${step.id}`}
               width={700}
+              height={339}
             />
             <p>
               {`${step.id}.`} {step.text}

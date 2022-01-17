@@ -12,6 +12,17 @@ const FormWrapper = styled.div`
   width: 300px;
 `;
 
+const LinkButton = styled.button`
+  border: 0;
+  text-decoration: underline;
+  text-transform: none;
+  font-size: 1.5rem;
+  padding: 0;
+  height: 0;
+  letter-spacing: 0;
+  color: #00aae5;
+`;
+
 const DownloadButton = styled.button`
   height: 50px;
 `;
@@ -107,6 +118,11 @@ const Form = (props) => {
     setErrorText('');
   };
 
+  const restartFlow = () => {
+    setHasDownloadStarted(false);
+    props.onDownloadCompleted(false);
+  };
+
   return (
     <>
       {hasError && <Alert text={errorText} />}
@@ -115,7 +131,12 @@ const Form = (props) => {
       ) : (
         <>
           {hasDownloadStarted ? (
-            <HowTo />
+            <>
+              <HowTo />
+              <LinkButton onClick={restartFlow}>
+                Download another collection
+              </LinkButton>
+            </>
           ) : (
             <FormWrapper key="form-wrapper">
               <div>
