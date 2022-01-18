@@ -5,6 +5,21 @@ import { Alert } from './components/Alert';
 import { HowTo } from './components/HowTo';
 import { Spinner } from './components/Spinner';
 
+const ENVIRONMENTS = [
+  {
+    label: 'Acceptance',
+    value: 'acc',
+  },
+  {
+    label: 'Testing',
+    value: 'test',
+  },
+  {
+    label: 'Production',
+    value: 'prod',
+  },
+];
+
 const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -14,17 +29,30 @@ const FormWrapper = styled.div`
 
 const LinkButton = styled.button`
   border: 0;
+  height: auto;
   text-decoration: underline;
   text-transform: none;
   font-size: 1.5rem;
   padding: 0;
-  height: 0;
   letter-spacing: 0;
-  color: #00aae5;
+  color: ${(props) => props.color || 'darkgrey'};
 `;
 
 const DownloadButton = styled.button`
   height: 50px;
+`;
+
+const AdvancedOptions = styled.div``;
+
+const InfoBox = styled.div`
+  background-color: #efefef;
+  padding: 15px;
+  border-radius: 5px;
+`;
+
+const Text = styled.p`
+  font-size: ${(props) => (props.size === 'small' ? '1.20rem' : '1.5rem')};
+  margin-bottom: 0;
 `;
 
 const Form = (props) => {
@@ -33,14 +61,17 @@ const Form = (props) => {
   const [formData, setFormData] = useState({
     clientId: '',
     clientSecret: '',
-    environment: '',
+    environment: 'test',
     apiType: queryParams.get('api') ?? '',
     otherUrl: '',
+    tokenGrantType: 'client_credentials',
+    callbackUrl: '',
   });
 
   const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
 
   const [loading, setLoading] = useState(false);
+  const [hasAdvancedSettings, setHasAdvancedSettings] = useState(false);
   const [hasDownloadStarted, setHasDownloadStarted] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorText, setErrorText] = useState(DEFAULT_ERROR_TEXT);
@@ -80,12 +111,13 @@ const Form = (props) => {
       default:
         scheme = UDB_ENTRY_SCHEME_URL;
     }
-    const environment = 'test';
+    const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
-      tokenGrantType: 'client_credentials',
+      tokenGrantType: formData.tokenGrantType || 'client_credentials',
       clientId: formData.clientId,
       clientSecret: formData.clientSecret,
+      ...(formData.callbackUrl !== '' && { callbackUrl: formData.callbackUrl }),
     };
     try {
       setLoading(true);
@@ -123,6 +155,10 @@ const Form = (props) => {
     props.onDownloadCompleted(false);
   };
 
+  const toggleAdvancedOptions = () => {
+    setHasAdvancedSettings(!hasAdvancedSettings);
+  };
+
   return (
     <>
       {hasError && <Alert text={errorText} />}
@@ -133,7 +169,7 @@ const Form = (props) => {
           {hasDownloadStarted ? (
             <>
               <HowTo />
-              <LinkButton onClick={restartFlow}>
+              <LinkButton onClick={restartFlow} color="#00aae5">
                 Download another collection
               </LinkButton>
             </>
@@ -143,7 +179,7 @@ const Form = (props) => {
                 <input
                   className="u-full-width"
                   type="text"
-                  placeholder="client id (test environment)"
+                  placeholder={`client id (${formData.environment} environment)`}
                   value={formData.clientId}
                   onChange={(e) => {
                     setFormData({ ...formData, clientId: e.target.value });
@@ -164,7 +200,6 @@ const Form = (props) => {
                 />
               </div>
               <div>
-                <label htmlFor="apiType">API</label>
                 <select
                   className="u-full-width"
                   value={formData.apiType}
@@ -196,6 +231,83 @@ const Form = (props) => {
                   />
                 </div>
               )}
+              {hasAdvancedSettings && (
+                <AdvancedOptions>
+                  <label htmlFor="enironment">Environment</label>
+                  <select
+                    className="u-full-width"
+                    value={formData.environment}
+                    onChange={(e) => {
+                      setFormData({ ...formData, environment: e.target.value });
+                      resetError();
+                    }}
+                    id="environment"
+                  >
+                    {ENVIRONMENTS.map((environment) => (
+                      <option value={environment.value}>
+                        {environment.label}
+                      </option>
+                    ))}
+                  </select>
+                  <label htmlFor="tokenGrantType">Token type </label>
+                  <select
+                    className="u-full-width"
+                    value={formData.tokenGrantType}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        tokenGrantType: e.target.value,
+                      });
+                      resetError();
+                    }}
+                    id="tokenGrantType"
+                  >
+                    <option value="client_credentials">
+                      Client access token
+                    </option>
+                    <option value="authorization_code">
+                      User access token
+                    </option>
+                  </select>
+                  {formData.tokenGrantType === 'authorization_code' && (
+                    <div>
+                      <input
+                        className="u-full-width"
+                        type="text"
+                        placeholder="callback url*"
+                        value={formData.callbackUrl}
+                        onChange={(e) => {
+                          setFormData({
+                            ...formData,
+                            callbackUrl: e.target.value,
+                          });
+                          resetError();
+                        }}
+                      />
+                      <InfoBox>
+                        <Text size="small">
+                          *URL to redirect back to after logging in. Postman
+                          will not show the actual page, but it is still
+                          required for a successful login flow. Has to be a URL
+                          that is configured to be allowed for the given client
+                          id. See the{' '}
+                          <a
+                            href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            user access token documentation
+                          </a>{' '}
+                          for more information.
+                        </Text>
+                      </InfoBox>
+                    </div>
+                  )}
+                </AdvancedOptions>
+              )}
+              <LinkButton onClick={toggleAdvancedOptions}>
+                {hasAdvancedSettings ? 'Hide' : 'Show'} advanced options
+              </LinkButton>
               <DownloadButton onClick={handleSubmit} className="button-primary">
                 Download
               </DownloadButton>
