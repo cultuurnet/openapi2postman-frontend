@@ -235,7 +235,7 @@ const Form = (props) => {
               )}
               {hasAdvancedSettings && (
                 <AdvancedOptions>
-                  <label htmlFor="enironment">Environment</label>
+                  <label htmlFor="environment">Environment</label>
                   <select
                     className="u-full-width"
                     value={formData.environment}
