@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Alert } from './components/Alert';
 import { HowTo } from './components/HowTo';
 import { Spinner } from './components/Spinner';
+import { Tooltip } from './components/Tooltip';
 
 const ENVIRONMENTS = [
   {
@@ -187,7 +188,7 @@ const Form = (props) => {
                   }}
                 />
               </div>
-              <div>
+              <div style={{ position: 'relative' }}>
                 <input
                   type="password"
                   className="u-full-width"
@@ -197,6 +198,11 @@ const Form = (props) => {
                     setFormData({ ...formData, clientSecret: e.target.value });
                     resetError();
                   }}
+                />
+                <Tooltip
+                  text={
+                    'Your client secret never leaves your browser. You can also leave this empty and enter it in Postman itself as the "oauth2ClientSecret" variable.'
+                  }
                 />
               </div>
               <div>
@@ -233,7 +239,7 @@ const Form = (props) => {
               )}
               {hasAdvancedSettings && (
                 <AdvancedOptions>
-                  <label htmlFor="enironment">Environment</label>
+                  <label htmlFor="environment">Environment</label>
                   <select
                     className="u-full-width"
                     value={formData.environment}
