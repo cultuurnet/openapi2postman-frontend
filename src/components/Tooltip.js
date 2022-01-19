@@ -1,6 +1,6 @@
 import ReactTooltip from 'react-tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const QuestionMark = styled.div`

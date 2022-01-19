@@ -188,7 +188,7 @@ const Form = (props) => {
                   }}
                 />
               </div>
-              <div style={{position: "relative"}}>
+              <div style={{ position: 'relative' }}>
                 <input
                   type="password"
                   className="u-full-width"
@@ -199,7 +199,11 @@ const Form = (props) => {
                     resetError();
                   }}
                 />
-                <Tooltip text={"Your client secret never leaves your browser. You can also leave this empty and enter it in Postman itself as the \"oauth2ClientSecret\" variable."} />
+                <Tooltip
+                  text={
+                    'Your client secret never leaves your browser. You can also leave this empty and enter it in Postman itself as the "oauth2ClientSecret" variable.'
+                  }
+                />
               </div>
               <div>
                 <select
