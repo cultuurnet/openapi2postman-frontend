@@ -79,8 +79,8 @@ const Form = (props) => {
 
   const PUBLIQ_STOPLIGHT_SCHEME =
     'https://stoplight.io/api/v1/projects/publiq/';
-  const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`;
-  const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
+  const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json`;
+  const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json`;
 
   const handleSubmit = async () => {
     if (
