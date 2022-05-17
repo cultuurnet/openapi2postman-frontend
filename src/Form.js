@@ -79,16 +79,21 @@ const Form = (props) => {
 
   const PUBLIQ_STOPLIGHT_SCHEME =
     'https://stoplight.io/api/v1/projects/publiq/';
+  const PUBLIQ_GITHUBUSERCONTENT_SCHEME =
+    'https://raw.githubusercontent.com/cultuurnet/apidocs/';
   const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`;
   const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
 
   const handleSubmit = async () => {
     if (
       formData.apiType === 'other' &&
-      !formData.otherUrl.startsWith(PUBLIQ_STOPLIGHT_SCHEME)
+      !(
+        formData.otherUrl.startsWith(PUBLIQ_STOPLIGHT_SCHEME) ||
+        formData.otherUrl.startsWith(PUBLIQ_GITHUBUSERCONTENT_SCHEME)
+      )
     ) {
       setHasError(true);
-      setErrorText(`API URL should start with ${PUBLIQ_STOPLIGHT_SCHEME}`);
+      setErrorText(`API URL should start with ${PUBLIQ_STOPLIGHT_SCHEME} or ${PUBLIQ_GITHUBUSERCONTENT_SCHEME}`);
       return;
     }
 
