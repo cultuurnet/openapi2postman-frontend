@@ -83,6 +83,7 @@ const Form = (props) => {
     'https://raw.githubusercontent.com/cultuurnet/apidocs/';
   const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`;
   const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
+  const MPM_PARTNER_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`
 
   const handleSubmit = async () => {
     if (
@@ -110,6 +111,9 @@ const Form = (props) => {
         break;
       case 'uitpas-api':
         scheme = UITPAS_API_SCHEME_URL;
+        break;
+      case 'mpm-partner-api':
+        scheme = MPM_PARTNER_API_SCHEME_URL;
         break;
       case 'other':
         scheme = formData.otherUrl;
@@ -225,6 +229,7 @@ const Form = (props) => {
                   </option>
                   <option value="udb-entry">UiTdatabank Entry API</option>
                   <option value="uitpas-api">UiTPAS API</option>
+                  <option value="mpm-partner-api">museumPASSmusées Partner API</option>
                   <option value="other">Other...</option>
                 </select>
               </div>
