@@ -65,6 +65,7 @@ const Form = (props) => {
     environment: 'test',
     apiType: queryParams.get('api') ?? '',
     otherUrl: '',
+    authMethod: '',
     tokenGrantType: 'client_credentials',
     callbackUrl: '',
   });
@@ -109,24 +110,31 @@ const Form = (props) => {
     }
 
     let scheme;
+    let authMethod;
     switch (formData.apiType) {
       case 'udb-entry':
         scheme = UDB_ENTRY_SCHEME_URL;
+        authMethod = 'token';
         break;
       case 'udb-search':
         scheme = UDB_SEARCH_SCHEME_URL;
+        authMethod = 'x-client-id';
         break;
       case 'udb-taxonomy':
         scheme = UDB_TAXONOMY_SCHEME_URL;
+        authMethod = 'none';
         break;
       case 'uitpas-api':
         scheme = UITPAS_API_SCHEME_URL;
+        authMethod = 'token';
         break;
       case 'mpm-partner-api':
         scheme = MPM_PARTNER_API_SCHEME_URL;
+        authMethod = 'token';
         break;
       case 'other':
         scheme = formData.otherUrl;
+        authMethod = formData.authMethod;
         break;
       default:
         scheme = UDB_ENTRY_SCHEME_URL;
@@ -134,6 +142,7 @@ const Form = (props) => {
     const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
+      authMethod: authMethod,
       tokenGrantType: formData.tokenGrantType || 'client_credentials',
       clientId: formData.clientId,
       clientSecret: formData.clientSecret,
@@ -220,16 +229,36 @@ const Form = (props) => {
               </div>
               {formData.apiType === 'other' && (
                 <div>
-                  <input
-                    className="u-full-width"
-                    type="text"
-                    placeholder="openapi file url"
-                    value={formData.otherUrl}
-                    onChange={(e) => {
-                      setFormData({ ...formData, otherUrl: e.target.value });
-                      resetError();
-                    }}
-                  />
+                  <div>
+                    <input
+                      className="u-full-width"
+                      type="text"
+                      placeholder="openapi file url"
+                      value={formData.otherUrl}
+                      onChange={(e) => {
+                        setFormData({ ...formData, otherUrl: e.target.value });
+                        resetError();
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <select
+                      className="u-full-width"
+                      value={formData.authMethod}
+                      onChange={(e) => {
+                        setFormData({ ...formData, authMethod: e.target.value });
+                        resetError();
+                      }}
+                      id="authMethod"
+                    >
+                      <option value="" disabled>
+                        Select authentication method
+                      </option>
+                      <option value="none">None</option>
+                      <option value="token">Token</option>
+                      <option value="x-client-id">Client identification (x-client-id header)</option>
+                    </select>
+                  </div>
                 </div>
               )}
               <div>
