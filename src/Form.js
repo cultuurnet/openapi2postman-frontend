@@ -88,6 +88,37 @@ const Form = (props) => {
   const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
   const MPM_PARTNER_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`;
 
+  let scheme;
+  let authMethod;
+  switch (formData.apiType) {
+    case 'udb-entry':
+      scheme = UDB_ENTRY_SCHEME_URL;
+      authMethod = 'token';
+      break;
+    case 'udb-search':
+      scheme = UDB_SEARCH_SCHEME_URL;
+      authMethod = 'x-client-id';
+      break;
+    case 'udb-taxonomy':
+      scheme = UDB_TAXONOMY_SCHEME_URL;
+      authMethod = 'none';
+      break;
+    case 'uitpas-api':
+      scheme = UITPAS_API_SCHEME_URL;
+      authMethod = 'token';
+      break;
+    case 'mpm-partner-api':
+      scheme = MPM_PARTNER_API_SCHEME_URL;
+      authMethod = 'token';
+      break;
+    case 'other':
+      scheme = formData.otherUrl;
+      authMethod = formData.authMethod;
+      break;
+    default:
+      scheme = UDB_ENTRY_SCHEME_URL;
+  }
+
   const handleSubmit = async () => {
     if (
       formData.apiType === 'other' &&
@@ -109,36 +140,6 @@ const Form = (props) => {
       return;
     }
 
-    let scheme;
-    let authMethod;
-    switch (formData.apiType) {
-      case 'udb-entry':
-        scheme = UDB_ENTRY_SCHEME_URL;
-        authMethod = 'token';
-        break;
-      case 'udb-search':
-        scheme = UDB_SEARCH_SCHEME_URL;
-        authMethod = 'x-client-id';
-        break;
-      case 'udb-taxonomy':
-        scheme = UDB_TAXONOMY_SCHEME_URL;
-        authMethod = 'none';
-        break;
-      case 'uitpas-api':
-        scheme = UITPAS_API_SCHEME_URL;
-        authMethod = 'token';
-        break;
-      case 'mpm-partner-api':
-        scheme = MPM_PARTNER_API_SCHEME_URL;
-        authMethod = 'token';
-        break;
-      case 'other':
-        scheme = formData.otherUrl;
-        authMethod = formData.authMethod;
-        break;
-      default:
-        scheme = UDB_ENTRY_SCHEME_URL;
-    }
     const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
