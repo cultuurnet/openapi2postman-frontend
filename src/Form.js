@@ -262,7 +262,7 @@ const Form = (props) => {
                   </div>
                 </div>
               )}
-              {formData.authMethod !== 'none' && (
+              {(authMethod === 'token' || authMethod === 'x-client-id') && (
                 <div>
                   <input
                     className="u-full-width"
@@ -276,7 +276,7 @@ const Form = (props) => {
                   />
                 </div>
               )}
-              {formData.authMethod === 'token' && (
+              {authMethod === 'token' && (
                 <div style={{ position: 'relative' }}>
                   <input
                     type="password"
