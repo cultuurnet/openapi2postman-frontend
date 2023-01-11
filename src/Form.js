@@ -224,7 +224,7 @@ const Form = (props) => {
                   <option value="mpm-partner-api">
                     museumPASSmusées Partner API
                   </option>
-                  <option value="other">Other...</option>
+                  <option value="other">Other API...</option>
                 </select>
               </div>
               {formData.apiType === 'other' && (
@@ -254,7 +254,7 @@ const Form = (props) => {
                       <option value="" disabled>
                         Select authentication method
                       </option>
-                      <option value="none">None</option>
+                      <option value="none">No authentication</option>
                       <option value="token">Token</option>
                       <option value="x-client-id">Client identification (x-client-id header)</option>
                     </select>
