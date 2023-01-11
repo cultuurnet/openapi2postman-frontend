@@ -43,17 +43,6 @@ const DownloadButton = styled.button`
   height: 50px;
 `;
 
-const InfoBox = styled.div`
-  background-color: #efefef;
-  padding: 15px;
-  border-radius: 5px;
-`;
-
-const Text = styled.p`
-  font-size: ${(props) => (props.size === 'small' ? '1.20rem' : '1.5rem')};
-  margin-bottom: 0;
-`;
-
 const Form = (props) => {
   const queryParams = new URLSearchParams(window.location.search);
 
@@ -65,7 +54,6 @@ const Form = (props) => {
     otherUrl: '',
     authMethod: '',
     tokenGrantType: 'client_credentials',
-    callbackUrl: '',
   });
 
   const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
@@ -144,7 +132,7 @@ const Form = (props) => {
       tokenGrantType: formData.tokenGrantType || 'client_credentials',
       clientId: formData.clientId,
       clientSecret: formData.clientSecret,
-      ...(formData.callbackUrl !== '' && { callbackUrl: formData.callbackUrl }),
+      callbackUrl: 'https://oauth.pstmn.io/v1/callback',
     };
     try {
       setLoading(true);
@@ -310,40 +298,6 @@ const Form = (props) => {
                       User access token
                     </option>
                   </select>
-                  {formData.tokenGrantType === 'authorization_code' && (
-                    <div>
-                      <input
-                        className="u-full-width"
-                        type="text"
-                        placeholder="callback url*"
-                        value={formData.callbackUrl}
-                        onChange={(e) => {
-                          setFormData({
-                            ...formData,
-                            callbackUrl: e.target.value,
-                          });
-                          resetError();
-                        }}
-                      />
-                      <InfoBox>
-                        <Text size="small">
-                          *URL to redirect back to after logging in. Postman
-                          will not show the actual page, but it is still
-                          required for a successful login flow. Has to be a URL
-                          that is configured to be allowed for the given client
-                          id. See the{' '}
-                          <a
-                            href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            user access token documentation
-                          </a>{' '}
-                          for more information.
-                        </Text>
-                      </InfoBox>
-                    </div>
-                  )}
                 </div>
               )}
               {formData.apiType !== '' && (
