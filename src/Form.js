@@ -43,8 +43,6 @@ const DownloadButton = styled.button`
   height: 50px;
 `;
 
-const AdvancedOptions = styled.div``;
-
 const InfoBox = styled.div`
   background-color: #efefef;
   padding: 15px;
@@ -73,7 +71,6 @@ const Form = (props) => {
   const DEFAULT_ERROR_TEXT = 'Something went wrong, please try again later';
 
   const [loading, setLoading] = useState(false);
-  const [hasAdvancedSettings, setHasAdvancedSettings] = useState(false);
   const [hasDownloadStarted, setHasDownloadStarted] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorText, setErrorText] = useState(DEFAULT_ERROR_TEXT);
@@ -183,10 +180,6 @@ const Form = (props) => {
   const restartFlow = () => {
     setHasDownloadStarted(false);
     props.onDownloadCompleted(false);
-  };
-
-  const toggleAdvancedOptions = () => {
-    setHasAdvancedSettings(!hasAdvancedSettings);
   };
 
   return (
@@ -356,8 +349,8 @@ const Form = (props) => {
                   )}
                 </div>
               )}
-              {hasAdvancedSettings && (
-                <AdvancedOptions>
+              {formData.apiType !== '' && (
+                <div>
                   <label htmlFor="environment">Environment</label>
                   <select
                     className="u-full-width"
@@ -374,11 +367,8 @@ const Form = (props) => {
                       </option>
                     ))}
                   </select>
-                </AdvancedOptions>
+                </div>
               )}
-              <LinkButton onClick={toggleAdvancedOptions}>
-                {hasAdvancedSettings ? 'Hide' : 'Show'} advanced options
-              </LinkButton>
               <DownloadButton onClick={handleSubmit} className="button-primary">
                 Download
               </DownloadButton>
