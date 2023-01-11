@@ -86,7 +86,7 @@ const Form = (props) => {
   const MPM_PARTNER_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`;
 
   let scheme;
-  let authMethod = 'none';
+  let authMethod;
   switch (formData.apiType) {
     case 'udb-entry':
       scheme = UDB_ENTRY_SCHEME_URL;
@@ -258,7 +258,7 @@ const Form = (props) => {
                   </select>
                 )}
               </div>
-              {(authMethod !== 'none') && (
+              {(authMethod === 'token' || authMethod === 'x-client-id') && (
                 <div>
                   <input
                     className="u-full-width"
