@@ -249,9 +249,6 @@ const Form = (props) => {
                     }}
                     id="authMethod"
                   >
-                    <option value="" disabled>
-                      Select authentication method
-                    </option>
                     <option value="none">None</option>
                     <option value="token">Token</option>
                     <option value="x-client-id">Client identification (x-client-id header)</option>
