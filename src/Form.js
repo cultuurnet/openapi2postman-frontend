@@ -230,38 +230,41 @@ const Form = (props) => {
               </div>
               {formData.apiType === 'other' && (
                 <div>
-                  <div>
-                    <input
-                      className="u-full-width"
-                      type="text"
-                      placeholder="openapi file url"
-                      value={formData.otherUrl}
-                      onChange={(e) => {
-                        setFormData({ ...formData, otherUrl: e.target.value });
-                        resetError();
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <select
-                      className="u-full-width"
-                      value={formData.authMethod}
-                      onChange={(e) => {
-                        setFormData({ ...formData, authMethod: e.target.value });
-                        resetError();
-                      }}
-                      id="authMethod"
-                    >
-                      <option value="" disabled>
-                        Select authentication method
-                      </option>
-                      <option value="none">No authentication</option>
-                      <option value="token">Token</option>
-                      <option value="x-client-id">Client identification (x-client-id header)</option>
-                    </select>
-                  </div>
+                  <input
+                    className="u-full-width"
+                    type="text"
+                    placeholder="openapi file url"
+                    value={formData.otherUrl}
+                    onChange={(e) => {
+                      setFormData({ ...formData, otherUrl: e.target.value });
+                      resetError();
+                    }}
+                  />
                 </div>
               )}
+              <div>
+                {authMethod !== 'none' && (
+                  <label htmlFor="authMethod">Authentication</label>
+                )}
+                {formData.apiType === 'other' && (
+                  <select
+                    className="u-full-width"
+                    value={formData.authMethod}
+                    onChange={(e) => {
+                      setFormData({ ...formData, authMethod: e.target.value });
+                      resetError();
+                    }}
+                    id="authMethod"
+                  >
+                    <option value="" disabled>
+                      Select authentication method
+                    </option>
+                    <option value="none">None</option>
+                    <option value="token">Token</option>
+                    <option value="x-client-id">Client identification (x-client-id header)</option>
+                  </select>
+                )}
+              </div>
               {(authMethod !== 'none') && (
                 <div>
                   <input
