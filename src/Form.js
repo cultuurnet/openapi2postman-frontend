@@ -316,58 +316,62 @@ const Form = (props) => {
                       </option>
                     ))}
                   </select>
-                  <label htmlFor="tokenGrantType">Token type </label>
-                  <select
-                    className="u-full-width"
-                    value={formData.tokenGrantType}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        tokenGrantType: e.target.value,
-                      });
-                      resetError();
-                    }}
-                    id="tokenGrantType"
-                  >
-                    <option value="client_credentials">
-                      Client access token
-                    </option>
-                    <option value="authorization_code">
-                      User access token
-                    </option>
-                  </select>
-                  {formData.tokenGrantType === 'authorization_code' && (
+                  {authMethod === 'token' && (
                     <div>
-                      <input
+                      <label htmlFor="tokenGrantType">Token type</label>
+                      <select
                         className="u-full-width"
-                        type="text"
-                        placeholder="callback url*"
-                        value={formData.callbackUrl}
+                        value={formData.tokenGrantType}
                         onChange={(e) => {
                           setFormData({
                             ...formData,
-                            callbackUrl: e.target.value,
+                            tokenGrantType: e.target.value,
                           });
                           resetError();
                         }}
-                      />
-                      <InfoBox>
-                        <Text size="small">
-                          *URL to redirect back to after logging in. Postman
-                          will not show the actual page, but it is still
-                          required for a successful login flow. Has to be a URL
-                          that is configured to be allowed for the given client
-                          id. See the{' '}
-                          <a
-                            href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            user access token documentation
-                          </a>{' '}
-                          for more information.
-                        </Text>
-                      </InfoBox>
+                        id="tokenGrantType"
+                      >
+                        <option value="client_credentials">
+                          Client access token
+                        </option>
+                        <option value="authorization_code">
+                          User access token
+                        </option>
+                      </select>
+                      {formData.tokenGrantType === 'authorization_code' && (
+                        <div>
+                          <input
+                            className="u-full-width"
+                            type="text"
+                            placeholder="callback url*"
+                            value={formData.callbackUrl}
+                            onChange={(e) => {
+                              setFormData({
+                                ...formData,
+                                callbackUrl: e.target.value,
+                              });
+                              resetError();
+                            }}
+                          />
+                          <InfoBox>
+                            <Text size="small">
+                              *URL to redirect back to after logging in. Postman
+                              will not show the actual page, but it is still
+                              required for a successful login flow. Has to be a URL
+                              that is configured to be allowed for the given client
+                              id. See the{' '}
+                              <a
+                                href="https://docs.publiq.be/docs/authentication/ZG9jOjExODE5NTM5-user-access-token#client-configuration"
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                user access token documentation
+                              </a>{' '}
+                              for more information.
+                            </Text>
+                          </InfoBox>
+                        </div>
+                      )}
                     </div>
                   )}
                 </AdvancedOptions>
