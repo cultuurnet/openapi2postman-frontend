@@ -188,35 +188,6 @@ const Form = (props) => {
           ) : (
             <FormWrapper key="form-wrapper">
               <div>
-                <input
-                  className="u-full-width"
-                  type="text"
-                  placeholder={`client id (${formData.environment} environment)`}
-                  value={formData.clientId}
-                  onChange={(e) => {
-                    setFormData({ ...formData, clientId: e.target.value });
-                    resetError();
-                  }}
-                />
-              </div>
-              <div style={{ position: 'relative' }}>
-                <input
-                  type="password"
-                  className="u-full-width"
-                  placeholder="client secret"
-                  value={formData.clientSecret}
-                  onChange={(e) => {
-                    setFormData({ ...formData, clientSecret: e.target.value });
-                    resetError();
-                  }}
-                />
-                <Tooltip
-                  text={
-                    'Your client secret never leaves your browser. You can also leave this empty and enter it in Postman itself as the "oauth2ClientSecret" variable.'
-                  }
-                />
-              </div>
-              <div>
                 <select
                   className="u-full-width"
                   value={formData.apiType}
@@ -251,6 +222,35 @@ const Form = (props) => {
                   />
                 </div>
               )}
+              <div>
+                <input
+                  className="u-full-width"
+                  type="text"
+                  placeholder={`client id (${formData.environment} environment)`}
+                  value={formData.clientId}
+                  onChange={(e) => {
+                    setFormData({ ...formData, clientId: e.target.value });
+                    resetError();
+                  }}
+                />
+              </div>
+              <div style={{ position: 'relative' }}>
+                <input
+                  type="password"
+                  className="u-full-width"
+                  placeholder="client secret"
+                  value={formData.clientSecret}
+                  onChange={(e) => {
+                    setFormData({ ...formData, clientSecret: e.target.value });
+                    resetError();
+                  }}
+                />
+                <Tooltip
+                  text={
+                    'Your client secret never leaves your browser. You can also leave this empty and enter it in Postman itself as the "oauth2ClientSecret" variable.'
+                  }
+                />
+              </div>
               {hasAdvancedSettings && (
                 <AdvancedOptions>
                   <label htmlFor="environment">Environment</label>
