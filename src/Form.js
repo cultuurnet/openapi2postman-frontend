@@ -243,7 +243,7 @@ const Form = (props) => {
                 </div>
               )}
               <div>
-                {authMethod !== 'none' && (
+                {(authMethod !== 'none' || formData.apiType === 'other') && (
                   <label htmlFor="authMethod">Authentication</label>
                 )}
                 {formData.apiType === 'other' && (
