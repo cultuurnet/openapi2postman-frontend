@@ -231,6 +231,26 @@ const Form = (props) => {
                   />
                 </div>
               )}
+              {formData.apiType !== '' && (
+                <div>
+                  <label htmlFor="environment">Environment</label>
+                  <select
+                    className="u-full-width"
+                    value={environment}
+                    onChange={(e) => {
+                      setFormData({ ...formData, environment: e.target.value });
+                      resetError();
+                    }}
+                    id="environment"
+                  >
+                    {environments.map((environment) => (
+                      <option value={environment.value}>
+                        {environment.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 {(authMethod !== 'none' || formData.apiType === 'other') && (
                   <label htmlFor="authMethod">Authentication</label>
@@ -305,26 +325,6 @@ const Form = (props) => {
                     <option value="authorization_code">
                       User access token
                     </option>
-                  </select>
-                </div>
-              )}
-              {formData.apiType !== '' && (
-                <div>
-                  <label htmlFor="environment">Environment</label>
-                  <select
-                    className="u-full-width"
-                    value={environment}
-                    onChange={(e) => {
-                      setFormData({ ...formData, environment: e.target.value });
-                      resetError();
-                    }}
-                    id="environment"
-                  >
-                    {environments.map((environment) => (
-                      <option value={environment.value}>
-                        {environment.label}
-                      </option>
-                    ))}
                   </select>
                 </div>
               )}
