@@ -69,7 +69,7 @@ const Form = (props) => {
   ];
 
   const apiConfig = {
-    'none': {
+    none: {
       scheme: '',
       authMethod: 'none',
       environments: [],
@@ -91,7 +91,7 @@ const Form = (props) => {
       scheme: `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/taxonomy.json?deref=optimizedBundle`,
       authMethod: 'none',
       environments: allEnvironments.filter(
-        (environment) => environment.value === 'prod'
+        (environment) => environment.value === 'prod',
       ),
       defaultEnvironment: 'prod',
     },
@@ -107,15 +107,16 @@ const Form = (props) => {
       environments: allEnvironments,
       defaultEnvironment: 'test',
     },
-    'other': {
+    other: {
       scheme: formData.otherUrl,
       authMethod: formData.authMethod,
       environments: allEnvironments,
       defaultEnvironment: 'test',
-    }
-  }
+    },
+  };
 
-  const { scheme, authMethod, defaultEnvironment, environments } = apiConfig[formData.apiType || 'none'];
+  const { scheme, authMethod, defaultEnvironment, environments } =
+    apiConfig[formData.apiType || 'none'];
   const environment = formData.environment || defaultEnvironment;
 
   const handleSubmit = async () => {
