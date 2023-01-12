@@ -290,7 +290,7 @@ const Form = (props) => {
                   <input
                     type="password"
                     className="u-full-width"
-                    placeholder="Client secret"
+                    placeholder={`Client secret (${environment} environment)`}
                     value={formData.clientSecret}
                     onChange={(e) => {
                       setFormData({ ...formData, clientSecret: e.target.value });
