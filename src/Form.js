@@ -52,11 +52,6 @@ const Form = (props) => {
     'https://stoplight.io/api/v1/projects/publiq/';
   const PUBLIQ_GITHUBUSERCONTENT_SCHEME =
     'https://raw.githubusercontent.com/cultuurnet/apidocs/';
-  const UDB_ENTRY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`;
-  const UDB_SEARCH_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/search.json?deref=optimizedBundle`;
-  const UDB_TAXONOMY_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/taxonomy.json?deref=optimizedBundle`;
-  const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
-  const MPM_PARTNER_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`;
 
   const allEnvironments = [
     {
@@ -81,19 +76,19 @@ const Form = (props) => {
       defaultEnvironment: '',
     },
     'udb-entry': {
-      scheme: UDB_ENTRY_SCHEME_URL,
+      scheme: `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/entry.json?deref=optimizedBundle`,
       authMethod: 'token',
       environments: allEnvironments,
       defaultEnvironment: 'test',
     },
     'udb-search': {
-      scheme: UDB_SEARCH_SCHEME_URL,
+      scheme: `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/search.json?deref=optimizedBundle`,
       authMethod: 'x-client-id',
       environments: allEnvironments,
       defaultEnvironment: 'test',
     },
     'udb-taxonomy': {
-      scheme: UDB_TAXONOMY_SCHEME_URL,
+      scheme: `${PUBLIQ_STOPLIGHT_SCHEME}uitdatabank/nodes/reference/taxonomy.json?deref=optimizedBundle`,
       authMethod: 'none',
       environments: allEnvironments.filter(
         (environment) => environment.value === 'prod'
@@ -101,13 +96,13 @@ const Form = (props) => {
       defaultEnvironment: 'prod',
     },
     'uitpas-api': {
-      scheme: UITPAS_API_SCHEME_URL,
+      scheme: `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`,
       authMethod: 'token',
       environments: allEnvironments,
       defaultEnvironment: 'test',
     },
     'mpm-partner-api': {
-      scheme: MPM_PARTNER_API_SCHEME_URL,
+      scheme: `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`,
       authMethod: 'token',
       environments: allEnvironments,
       defaultEnvironment: 'test',
