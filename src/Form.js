@@ -6,21 +6,6 @@ import { HowTo } from './components/HowTo';
 import { Spinner } from './components/Spinner';
 import { Tooltip } from './components/Tooltip';
 
-const ENVIRONMENTS = [
-  {
-    label: 'Acceptance',
-    value: 'acc',
-  },
-  {
-    label: 'Testing',
-    value: 'test',
-  },
-  {
-    label: 'Production',
-    value: 'prod',
-  },
-];
-
 const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -49,7 +34,7 @@ const Form = (props) => {
   const [formData, setFormData] = useState({
     clientId: '',
     clientSecret: '',
-    environment: 'test',
+    environment: '',
     apiType: queryParams.get('api') ?? '',
     otherUrl: '',
     authMethod: '',
@@ -75,6 +60,21 @@ const Form = (props) => {
 
   let scheme;
   let authMethod;
+  let defaultEnvironment = 'test';
+  let environments = [
+    {
+      label: 'Acceptance',
+      value: 'acc',
+    },
+    {
+      label: 'Testing',
+      value: 'test',
+    },
+    {
+      label: 'Production',
+      value: 'prod',
+    },
+  ];
   switch (formData.apiType) {
     case 'udb-entry':
       scheme = UDB_ENTRY_SCHEME_URL;
@@ -87,6 +87,13 @@ const Form = (props) => {
     case 'udb-taxonomy':
       scheme = UDB_TAXONOMY_SCHEME_URL;
       authMethod = 'none';
+      defaultEnvironment = 'prod';
+      environments = [
+        {
+          label: 'Production',
+          value: 'prod',
+        },
+      ];
       break;
     case 'uitpas-api':
       scheme = UITPAS_API_SCHEME_URL;
@@ -103,6 +110,8 @@ const Form = (props) => {
     default:
       scheme = UDB_ENTRY_SCHEME_URL;
   }
+
+  const environment = formData.environment || defaultEnvironment;
 
   const handleSubmit = async () => {
     if (
@@ -125,7 +134,6 @@ const Form = (props) => {
       return;
     }
 
-    const environment = formData.environment || 'test';
     const baseUrl = '';
     const auth = {
       authMethod: authMethod,
@@ -305,14 +313,14 @@ const Form = (props) => {
                   <label htmlFor="environment">Environment</label>
                   <select
                     className="u-full-width"
-                    value={formData.environment}
+                    value={environment}
                     onChange={(e) => {
                       setFormData({ ...formData, environment: e.target.value });
                       resetError();
                     }}
                     id="environment"
                   >
-                    {ENVIRONMENTS.map((environment) => (
+                    {environments.map((environment) => (
                       <option value={environment.value}>
                         {environment.label}
                       </option>
