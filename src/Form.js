@@ -267,7 +267,9 @@ const Form = (props) => {
                   >
                     <option value="none">None</option>
                     <option value="token">Token</option>
-                    <option value="x-client-id">Client identification (x-client-id header)</option>
+                    <option value="x-client-id">
+                      Client identification (x-client-id header)
+                    </option>
                   </select>
                 )}
               </div>
@@ -293,7 +295,10 @@ const Form = (props) => {
                     placeholder={`Client secret (${environment} environment)`}
                     value={formData.clientSecret}
                     onChange={(e) => {
-                      setFormData({ ...formData, clientSecret: e.target.value });
+                      setFormData({
+                        ...formData,
+                        clientSecret: e.target.value,
+                      });
                       resetError();
                     }}
                   />
