@@ -256,7 +256,7 @@ const Form = (props) => {
                   <input
                     className="u-full-width"
                     type="text"
-                    placeholder={`client id (${environment} environment)`}
+                    placeholder={`Client id (${environment} environment)`}
                     value={formData.clientId}
                     onChange={(e) => {
                       setFormData({ ...formData, clientId: e.target.value });
@@ -270,7 +270,7 @@ const Form = (props) => {
                   <input
                     type="password"
                     className="u-full-width"
-                    placeholder="client secret"
+                    placeholder="Client secret"
                     value={formData.clientSecret}
                     onChange={(e) => {
                       setFormData({ ...formData, clientSecret: e.target.value });
