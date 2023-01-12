@@ -222,7 +222,7 @@ const Form = (props) => {
                   <input
                     className="u-full-width"
                     type="text"
-                    placeholder="openapi file url"
+                    placeholder="OpenAPI file url"
                     value={formData.otherUrl}
                     onChange={(e) => {
                       setFormData({ ...formData, otherUrl: e.target.value });
