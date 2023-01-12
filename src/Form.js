@@ -256,7 +256,7 @@ const Form = (props) => {
                   <input
                     className="u-full-width"
                     type="text"
-                    placeholder={`client id (${formData.environment} environment)`}
+                    placeholder={`client id (${environment} environment)`}
                     value={formData.clientId}
                     onChange={(e) => {
                       setFormData({ ...formData, clientId: e.target.value });
