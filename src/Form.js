@@ -58,10 +58,7 @@ const Form = (props) => {
   const UITPAS_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}uitpas/nodes/reference/uitpas.json?deref=optimizedBundle`;
   const MPM_PARTNER_API_SCHEME_URL = `${PUBLIQ_STOPLIGHT_SCHEME}museumpassmusees/nodes/reference/partner-api.json?deref=optimizedBundle`;
 
-  let scheme;
-  let authMethod;
-  let defaultEnvironment = 'test';
-  let environments = [
+  const allEnvironments = [
     {
       label: 'Acceptance',
       value: 'acc',
@@ -75,42 +72,55 @@ const Form = (props) => {
       value: 'prod',
     },
   ];
-  switch (formData.apiType) {
-    case 'udb-entry':
-      scheme = UDB_ENTRY_SCHEME_URL;
-      authMethod = 'token';
-      break;
-    case 'udb-search':
-      scheme = UDB_SEARCH_SCHEME_URL;
-      authMethod = 'x-client-id';
-      break;
-    case 'udb-taxonomy':
-      scheme = UDB_TAXONOMY_SCHEME_URL;
-      authMethod = 'none';
-      defaultEnvironment = 'prod';
-      environments = [
-        {
-          label: 'Production',
-          value: 'prod',
-        },
-      ];
-      break;
-    case 'uitpas-api':
-      scheme = UITPAS_API_SCHEME_URL;
-      authMethod = 'token';
-      break;
-    case 'mpm-partner-api':
-      scheme = MPM_PARTNER_API_SCHEME_URL;
-      authMethod = 'token';
-      break;
-    case 'other':
-      scheme = formData.otherUrl;
-      authMethod = formData.authMethod;
-      break;
-    default:
-      scheme = UDB_ENTRY_SCHEME_URL;
+
+  const apiConfig = {
+    'none': {
+      scheme: '',
+      authMethod: 'none',
+      environments: [],
+      defaultEnvironment: '',
+    },
+    'udb-entry': {
+      scheme: UDB_ENTRY_SCHEME_URL,
+      authMethod: 'token',
+      environments: allEnvironments,
+      defaultEnvironment: 'test',
+    },
+    'udb-search': {
+      scheme: UDB_SEARCH_SCHEME_URL,
+      authMethod: 'x-client-id',
+      environments: allEnvironments,
+      defaultEnvironment: 'test',
+    },
+    'udb-taxonomy': {
+      scheme: UDB_TAXONOMY_SCHEME_URL,
+      authMethod: 'none',
+      environments: allEnvironments.filter(
+        (environment) => environment.value === 'prod'
+      ),
+      defaultEnvironment: 'prod',
+    },
+    'uitpas-api': {
+      scheme: UITPAS_API_SCHEME_URL,
+      authMethod: 'token',
+      environments: allEnvironments,
+      defaultEnvironment: 'test',
+    },
+    'mpm-partner-api': {
+      scheme: MPM_PARTNER_API_SCHEME_URL,
+      authMethod: 'token',
+      environments: allEnvironments,
+      defaultEnvironment: 'test',
+    },
+    'other': {
+      scheme: formData.otherUrl,
+      authMethod: formData.authMethod,
+      environments: allEnvironments,
+      defaultEnvironment: 'test',
+    }
   }
 
+  const { scheme, authMethod, defaultEnvironment, environments } = apiConfig[formData.apiType || 'none'];
   const environment = formData.environment || defaultEnvironment;
 
   const handleSubmit = async () => {
